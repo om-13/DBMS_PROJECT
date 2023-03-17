@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<head>
+    <style>  
+        body  {  
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image:url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/1920px-Olympic_rings_without_rims.svg.png");  
+            background-color: #ffffff;
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }  
+    </style>  
+    <title> Olympics App </title>
+</head>
+
+<body>
+    <left>
+        <a href="{% url 'HomePage' %}">
+            <button>HomePage</button>
+        </a>
+    </left>
+    
+    <left>
+        <a href="{% url 'showAthlete' %}">
+            <button>Athlete Database</button>
+        </a>
+    </left>
+
+    <center>
+        <h1 style="color:rgb(33, 69, 233); margin-top: 50px;"> Insert Athlete </h1>
+        <form method="POST">
+            {% csrf_token %}
+        <table border="1" bgcolor="lightblue">
+            <tr>
+                <td> Athlete ID </td>
+                <td><input type="text" placeholder="Enter Athlete ID" name="athlete_id"></td>
+            </tr>
+            <tr>
+                <td> Athlete Name </td>
+                <td><input type="text" placeholder="Enter Athlete Name" name="athlete_name"></td>
+            </tr>
+            <tr>
+                <td> Gender </td>
+                <td><input type="text" placeholder="Enter Gender" name="gender"></td>
+            </tr>
+            <tr>
+                <td> Height </td>
+                <td><input type="text" placeholder="Enter Height" name="height"></td>
+            </tr>
+            <tr>
+                <td> Weight </td>
+                <td><input type="text" placeholder="Enter Weight" name="weight"></td>
+            </tr>
+            <tr>
+                <td> Age </td>
+                <td><input type="text" placeholder="Enter Age" name="age"></td>
+            </tr>
+            <tr>
+                <td> Sport </td>
+                <td><input type="text" placeholder="Enter Sport" name="sport"></td>
+            </tr>
+            <tr>
+                <td> Country </td>
+                <td><input type="text" placeholder="Enter Country" name="country"></td>
+            </tr>
+            <tr>
+                <td> <input type="submit" value="Insert"/> </td>
+                <td>
+                    {% if messages %}
+                    {% for mess in messages %}
+                    <b style="color: red;">{{mess}}</b>
+                    {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        </form>
+    </center>
+</body>
+</html>

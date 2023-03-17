@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+    <style>  
+        body  {  
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image:url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/1920px-Olympic_rings_without_rims.svg.png");  
+            background-color: #ffffff;
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }  
+        td {
+            text-align: center;
+        }
+        .my-custom-scrollbar {
+            position: relative;
+            height: 530px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>  
+    <title> Olympics App </title>
+</head>
+
+<body>
+    <left>
+        <a href="{% url 'HomePage' %}">
+            <button>HomePage</button>
+        </a>
+    </left>
+    
+    <left>
+        <a href="{% url 'showAthlete' %}">
+            <button>Athlete Database</button>
+        </a>
+    </left>
+
+    <left>
+        <a href="{% url 'insertAthlete' %}">
+            <button>Insert Athlete</button>
+        </a>
+    </left>
+
+    <center>
+        <h1 style="color:rgb(33, 69, 233); margin-top: 55px;"> Athlete Records </h1>
+    </hr>
+</hr>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0" border="1" bgcolor="lightblue">
+            <tr>
+                <th>athlete_id</th>
+                <th>athlete_name</th>
+                <th>gender</th>
+                <th>height</th>
+                <th>weight</th>
+                <th>age</th>
+                <th>sport</th>
+                <th>country</th>  
+            </tr>
+            {% for result in data %}
+            <tr>
+                <td> {{result.0}}</td>
+                <td> {{result.1}} </td>
+                <td> {{result.2}} </td>
+                <td> {{result.3}} </td>
+                <td> {{result.4}} </td>
+                <td> {{result.5}} </td>
+                <td> {{result.6}} </td>
+                <td> {{result.7}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+    </center>
+</body>
+</html>

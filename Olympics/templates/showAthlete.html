@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/1920px-Olympic_rings_without_rims.svg.png");
+            background-color: #ffffff;
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .my-custom-scrollbar {
+            position: relative;
+            height: 490px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+    <title> Olympics App</title>
+</head>
+
+<body>
+    <left>
+        <a href="{% url 'HomePage' %}">
+            <button>HomePage</button>
+        </a>
+    </left>
+
+    <left>
+        <a href="{% url 'insertAthlete' %}">
+            <button>Insert Athlete</button>
+        </a>
+    </left>
+
+    <center>
+        <h1 style="color:rgb(33, 69, 233); margin-top: 50px;"> Athlete Records </h1>
+        <form method="POST" action="sortAthlete">
+            {% csrf_token %}
+            <label for="Sort"></label>
+            <select id="Sort" name="Sort">
+                <option value="athlete_id">Athlete ID</option>
+                <option value="athlete_name">Athlete Name</option>
+                <option value="gender">Gender</option>
+                <option value="height">Height</option>
+                <option value="weight">Weight</option>
+                <option value="age">Age</option>
+                <option value="sport">Sport</option>
+                <option value="country">Country</option>
+            </select>
+            <input type="submit" value="Sort" />
+        </form>
+        </hr>
+        <a href="{% url 'runQueryAthlete' %}">
+            <button>Run Query</button>
+        </a>
+        </hr>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+            <table class="table table-bordered table-striped mb-0" border="1" bgcolor="lightblue">
+                <tr>
+                    <th>athlete_id</th>
+                    <th>athlete_name</th>
+                    <th>gender</th>
+                    <th>height</th>
+                    <th>weight</th>
+                    <th>age</th>
+                    <th>sport</th>
+                    <th>country</th>
+                </tr>
+                {% for result in data %}
+                <tr>
+                    <td> {{result.athlete_id}}</td>
+                    <td> {{result.athlete_name}} </td>
+                    <td> {{result.gender}} </td>
+                    <td> {{result.height}} </td>
+                    <td> {{result.weight}} </td>
+                    <td> {{result.age}} </td>
+                    <td> {{result.sport}} </td>
+                    <td> {{result.country}} </td>
+                    <td><a href="editAthlete/{{result.athlete_id}}">Edit✍</a></td>
+                    <td><a href="delAthlete/{{result.athlete_id}}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </center>
+</body>
+
+</html>

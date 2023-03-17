@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Olympic_rings_without_rims.svg/1920px-Olympic_rings_without_rims.svg.png");
+            background-color: #ffffff;
+            height: 500px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .my-custom-scrollbar {
+            position: relative;
+            height: 490px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+    <title> Olympics App </title>
+</head>
+
+<body>
+    <left>
+        <a href="{% url 'HomePage' %}">
+            <button>HomePage</button>
+        </a>
+    </left>
+
+    <left>
+        <a href="{% url 'showLeaderboard' %}">
+            <button>Leaderboard Database</button>
+        </a>
+    </left>
+
+    <left>
+        <a href="{% url 'insertLeaderboard' %}">
+            <button>Insert Leaderboard</button>
+        </a>
+    </left>
+
+    <center>
+        <h1 style="color:rgb(33, 69, 233); margin-top: 100px; font-size: 23px;"> Leaderboard Records - Sorted </h1>
+        <form method="POST" action="sortLeaderboard">
+            {% csrf_token %}
+            <label for="Sort"></label>
+            <select id="Sort" name="Sort">
+                <option value="country_id">Country ID</option>
+                <option value="country_name">Country Name</option>
+                <option value="gold_medals">Gold Medals</option>
+                <option value="silver_medals">Silver Medals</option>
+                <option value="bronze_medals">Bronze Medals</option>
+                <option value="total_medals">Total Medals</option>
+            </select>
+            <input type="submit" value="Sort" />
+        </form>
+        </hr>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-bordered table-striped mb-0" border="1" bgcolor="lightblue">
+            <tr>
+                <th>country_id</th>
+                <th>country_name</th>
+                <th>gold_medals</th>
+                <th>silver_medals</th>
+                <th>bronze_medals</th>
+                <th>total_medals</th>
+            </tr>
+            {% for result in data %}
+            <tr>
+                <td> {{result.country_id}}</td>
+                <td> {{result.country_name}} </td>
+                <td> {{result.gold_medals}} </td>
+                <td> {{result.silver_medals}} </td>
+                <td> {{result.bronze_medals}} </td>
+                <td> {{result.total_medals}} </td>
+                <td><a href="editLeaderboard/{{result.country_id}}">Edit✍</a></td>
+                <td><a href="delLeaderboard/{{result.country_id}}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </center>
+</body>
+
+</html>
